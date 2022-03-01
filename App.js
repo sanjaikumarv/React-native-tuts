@@ -1,29 +1,27 @@
 import React, { useState } from "react";
-import { StyleSheet, Text, View, TextInput } from "react-native";
+import { StyleSheet, Text, View, ScrollView } from "react-native";
 
 export default function App() {
-  const [name, setName] = useState("shaun");
-  const [age, setAge] = useState("30");
+  const [name, setName] = useState([
+    { name: "shan", key: "1" },
+    { name: "sanjai", key: "1" },
+    { name: "kumaresan", key: "1" },
+    { name: "riyas", key: "1" },
+    { name: "sham", key: "1" },
+    { name: "srinath", key: "1" },
+    { name: "arun", key: "1" },
+  ]);
+  
 
   return (
     <View style={styles.container}>
-      <Text>Enter name:</Text>
-      <TextInput
-        placeholder='e.g. John Doe'
-        style={styles.input}
-        onChangeText={(value) => setName(value)}
-      />
-
-      <Text>Enter age:</Text>
-      <TextInput
-        placeholder='e.g. 99'
-        style={styles.input}
-        onChangeText={(value) => setAge(value)}
-      />
-
-      <Text style={styles.result}>
-        name: {name}, age: {age}
-      </Text>
+      <ScrollView>
+        {name.map((name) => (
+          <View key={name.key}>
+            <Text style={styles.item}>{name.name}</Text>
+          </View>
+        ))}
+      </ScrollView>
     </View>
   );
 }
@@ -42,4 +40,10 @@ const styles = StyleSheet.create({
     margin: 10,
     width: 200,
   },
+  item: {
+    padding:30,
+    margin:30,
+    backgroundColor:"red",
+    fontSize:30,
+  }
 });
