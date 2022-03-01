@@ -1,35 +1,42 @@
 import React, { useState } from "react";
-import { StyleSheet, Text, View, FlatList } from "react-native";
+import {
+  StyleSheet,
+  Text,
+  View,
+  FlatList,
+  TouchableOpacity,
+} from "react-native";
 
 export default function App() {
-  const [name, setName] = useState([
-    { name: "shan", key: "1" },
-    { name: "sanjai", key: "1" },
-    { name: "kumaresan", key: "1" },
-    { name: "riyas", key: "1" },
-    { name: "sham", key: "1" },
-    { name: "srinath", key: "1" },
-    { name: "arun", key: "1" },
+  const [people, setPeople] = useState([
+    { name: "shaun", id: "1" },
+    { name: "yoshi", id: "1" },
+    { name: "mario", id: "1" },
+    { name: "luigi", id: "1" },
+    { name: "peach", id: "1" },
+    { name: "toad", id: "1" },
+    { name: "bowser", id: "1" },
   ]);
-  
+
+  const pressHandler = (id) => {
+    console.log(id);
+    setPeople((prevPeople) => {
+      return prevPeople.filter((person) => person.id != id);
+    });
+  };
 
   return (
     <View style={styles.container}>
       <FlatList
-      numColumns={2}
-      keyExtractor={(item)=>item.id}
-      data={name}
-      renderItem={({item})=>(
-        <Text style={styles.item}>{item.name}</Text>
-      )}
+        numColumns={2}
+        keyExtractor={(item) => item.id}
+        data={people}
+        renderItem={({ item }) => (
+          <TouchableOpacity onPress={() => pressHandler(item.id)}>
+            <Text style={styles.item}>{item.name}</Text>
+          </TouchableOpacity>
+        )}
       />
-      {/* <ScrollView>
-        {name.map((name) => (
-          <View key={name.key}>
-            <Text style={styles.item}>{name.name}</Text>
-          </View>
-        ))}
-      </ScrollView> */}
     </View>
   );
 }
@@ -37,23 +44,16 @@ export default function App() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    paddingTop: 40,
+    paddingHorizontal: 20,
     backgroundColor: "#fff",
-    alignItems: "center",
-    justifyContent: "center",
-  },
-  input: {
-    borderWidth: 1,
-    borderColor: "#777",
-    padding: 8,
-    margin: 10,
-    width: 200,
   },
   item: {
-    padding:30,
-    margin:30,
-    backgroundColor:"red",
-    fontSize:30,
-    marginHorizontal:10,
-    
-  }
+    flex: 1,
+    marginHorizontal: 10,
+    marginTop: 24,
+    padding: 30,
+    backgroundColor: "pink",
+    fontSize: 24,
+  },
 });
